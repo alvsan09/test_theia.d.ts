@@ -104,7 +104,6 @@ export module '@theia/plugin' {
         /**
          * The public API exported by this plug-in. It is an invalid action
          * to access this field before this plug-in has been activated.
-         * @stubbed
          */
         readonly exports: T;
 
@@ -1169,7 +1168,6 @@ export module '@theia/plugin' {
         /**
          * The column in which this editor shows. Will be `undefined` in case this
          * isn't one of the three main editors, e.g an embedded editor.
-         * @stubbed
          */
         viewColumn?: ViewColumn;
 
@@ -1215,7 +1213,6 @@ export module '@theia/plugin' {
          *
          * @param range A range.
          * @param revealType The scrolling strategy for revealing `range`.
-         * @stubbed
          */
         revealRange(range: Range, revealType?: TextEditorRevealType): void;
 
@@ -1654,7 +1651,6 @@ export module '@theia/plugin' {
 
         /**
          * The reason why save was triggered.
-         * @stubbed
          */
         reason: TextDocumentSaveReason;
 
@@ -2306,7 +2302,6 @@ export module '@theia/plugin' {
     export interface QuickPickOptions {
         /**
          * An optional string that represents the title of the quick pick.
-         * @stubbed
          */
         title?: string;
 
@@ -2359,6 +2354,36 @@ export module '@theia/plugin' {
     }
 
     /**
+     * Impacts the behavior and appearance of the validation message.
+     * @stubbed
+     */
+    export enum InputBoxValidationSeverity {
+        Info = 1,
+        Warning = 2,
+        Error = 3
+    }
+
+    /**
+     * Object to configure the behavior of the validation message.
+     * @stubbed
+     */
+    export interface InputBoxValidationMessage {
+        /**
+         * The validation message to display.
+         * @stubbed
+         */
+        readonly message: string;
+
+        /**
+         * The severity of the validation message.
+         * NOTE: When using `InputBoxValidationSeverity.Error`, the user will not be allowed to accept (hit ENTER) the input.
+         * `Info` and `Warning` will still allow the InputBox to accept the input.
+         * @stubbed
+         */
+        readonly severity: InputBoxValidationSeverity;
+    }
+
+    /**
      * Options to configure the behavior of the input box UI.
      */
     export interface InputBoxOptions {
@@ -2406,10 +2431,11 @@ export module '@theia/plugin' {
          * to the user.
          *
          * @param value The current value of the input box.
-         * @return A human readable string which is presented as diagnostic message.
-         * Return `undefined`, or the empty string when 'value' is valid.
+         * @return Either a human-readable string which is presented as an error message or an {@link InputBoxValidationMessage}
+         *  which can provide a specific message severity. Return `undefined`, `null`, or the empty string when 'value' is valid.
+         * @stubbed
          */
-        validateInput?: (input: string) => Promise<string | null | undefined> | undefined;
+        validateInput?: (input: string) => Promise<string | InputBoxValidationMessage | null | undefined> | undefined;
 
         /**
          * An optional function that will be called on Enter key.
@@ -2473,7 +2499,6 @@ export module '@theia/plugin' {
          * @param callback A command handler function with access to an [editor](#TextEditor) and an [edit](#TextEditorEdit).
          * @param thisArg The `this` context used when invoking the handler function.
          * @return Disposable which unregisters this command on disposal.
-         * @stubbed
          */
         export function registerTextEditorCommand(command: string, callback: (textEditor: TextEditor, edit: TextEditorEdit, ...args: any[]) => void, thisArg?: any): Disposable;
 
@@ -2676,7 +2701,6 @@ export module '@theia/plugin' {
 
         /**
          * Reference to a icon representing a folder. The icon is taken from the current file icon theme or a placeholder icon.
-         * @stubbed
          */
         static readonly Folder: ThemeIcon;
 
@@ -2868,7 +2892,6 @@ export module '@theia/plugin' {
     export interface Terminal {
         /**
          * Human readable representation of the terminal in the UI.
-         * @stubbed
          */
         readonly name: string;
 
@@ -2949,7 +2972,6 @@ export module '@theia/plugin' {
          * A message to write to the terminal on first launch. Note that this is not sent to the
          * process, but rather written directly to the terminal. This supports escape sequences such
          * as setting text style.
-         * @stubbed
          */
         message?: string;
 
@@ -3479,6 +3501,14 @@ export module '@theia/plugin' {
     export interface Memento {
 
         /**
+         * Returns the stored keys.
+         *
+         * @return The stored keys.
+         * @stubbed
+         */
+        keys(): readonly string[];
+
+        /**
          * Return a value.
          *
          * @param key A string.
@@ -3623,7 +3653,6 @@ export module '@theia/plugin' {
 
         /**
          * Fired when the webview content posts a message.
-         * @stubbed
          */
         readonly onDidReceiveMessage: Event<any>;
 
@@ -4467,8 +4496,9 @@ export module '@theia/plugin' {
          * @param options Configures the behavior of the selection list.
          * @param token A token that can be used to signal cancellation.
          * @return A promise that resolves to the selection or `undefined`.
+         * @stubbed
          */
-        export function showQuickPick(readonly items: string[] | Thenable<readonly string[]>, options: QuickPickOptions, token?: CancellationToken): Thenable<string | undefined>;
+        export function showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options?: QuickPickOptions, token?: CancellationToken): Thenable<string | undefined>;
 
         /**
          * Shows a selection list allowing multiple selections.
@@ -4477,8 +4507,9 @@ export module '@theia/plugin' {
          * @param options Configures the behavior of the selection list.
          * @param token A token that can be used to signal cancellation.
          * @return A promise that resolves to the selected items or `undefined`.
+         * @stubbed
          */
-        export function showQuickPick(readonly items: string[] | Thenable<readonly string[]>, options: QuickPickOptions & { canPickMany: true }, token?: CancellationToken): Thenable<string[] | undefined>;
+        export function showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options: QuickPickOptions & { canPickMany: true }, token?: CancellationToken): Thenable<string[] | undefined>;
 
         /**
          * Shows a selection list.
@@ -4487,8 +4518,9 @@ export module '@theia/plugin' {
          * @param options Configures the behavior of the selection list.
          * @param token A token that can be used to signal cancellation.
          * @return A promise that resolves to the selected item or `undefined`.
+         * @stubbed
          */
-        export function showQuickPick<T extends QuickPickItem>(items: readonly T[] | Thenable<readonly T[]>, options: QuickPickOptions, token?: CancellationToken): Thenable<T | undefined>;
+        export function showQuickPick<T extends QuickPickItem>(items: readonly T[] | Thenable<readonly T[]>, options?: QuickPickOptions, token?: CancellationToken): Thenable<T | undefined>;
 
         /**
          * Shows a selection list allowing multiple selections.
@@ -5008,7 +5040,6 @@ export module '@theia/plugin' {
          *
          * When a navigation 'back' button is needed this one should be used for consistency.
          * It comes with a predefined icon, tooltip and location.
-         * @stubbed
          */
         static readonly Back: QuickInputButton;
 
@@ -5069,8 +5100,11 @@ export module '@theia/plugin' {
 
         /**
          * An optional validation message indicating a problem with the current input value.
+         * By returning a string, the InputBox will use a default {@link InputBoxValidationSeverity} of Error.
+         * Returning undefined clears the validation message.
+         * @stubbed
          */
-        validationMessage: string | undefined;
+        validationMessage: string | InputBoxValidationMessage | undefined;
     }
 
     /**
@@ -5394,7 +5428,6 @@ export module '@theia/plugin' {
          * Optional id for the tree item that has to be unique across tree. The id is used to preserve the selection and expansion state of the tree item.
          *
          * If not provided, an id is generated using the tree item's label. **Note** that when labels change, ids will change and that selection and expansion state cannot be kept stable anymore.
-         * @stubbed
          */
         id?: string;
 
@@ -5652,11 +5685,17 @@ export module '@theia/plugin' {
          * Returns `true` if the given section for the given resource (if provided) is affected.
          *
          * @param section Configuration name, supports _dotted_ names.
-         * @param resource A resource Uri.
+         * @param scope a {@link ConfigurationScope}
          * @return `true` if the given section for the given resource (if provided) is affected.
+         * @stubbed
          */
-        affectsConfiguration(section: string, resource?: Uri): boolean;
+        affectsConfiguration(section: string, scope?: ConfigurationScope): boolean;
     }
+
+    /**
+     * @stubbed
+     */
+    export type ConfigurationScope = Uri | WorkspaceFolder | TextDocument | { uri?: Uri, languageId: string };
 
     /**
      * An event describing a change to the set of [workspace folders](#workspace.workspaceFolders).
@@ -6312,13 +6351,14 @@ export module '@theia/plugin' {
          * is returned. Dots in the section-identifier are interpreted as child-access,
          * like `{ myExt: { setting: { doIt: true }}}` and `getConfiguration('myExt.setting').get('doIt') === true`.
          *
-         * When a resource is provided, configuration scoped to that resource is returned.
+         * When a scope is provided configuration confined to that scope is returned. Scope can be a resource or a language identifier or both.
          *
          * @param section A dot-separated identifier.
-         * @param resource A resource for which the configuration is asked for
+         * @param scope A scope for which the configuration is asked for.
          * @return The full configuration or a subset.
+         * @stubbed
          */
-        export function getConfiguration(section?: string, resource?: Uri | null): WorkspaceConfiguration;
+        export function getConfiguration(section?: string, scope?: ConfigurationScope | null): WorkspaceConfiguration;
 
         /**
          * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.
@@ -6567,7 +6607,6 @@ export module '@theia/plugin' {
         /**
          * Indicates that this is a fresh install of the application.
          * `true` if within the first day of installation otherwise `false`.
-         * @stubbed
          */
         export const isNewAppInstall: boolean;
 
@@ -6772,7 +6811,6 @@ export module '@theia/plugin' {
     export enum IndentAction {
         /**
          * Insert new line and copy the previous line's indentation.
-         * @stubbed
          */
         None = 0,
         /**
@@ -6950,7 +6988,6 @@ export module '@theia/plugin' {
          * The index of the active parameter.
          *
          * If provided, this is used in place of SignatureHelp.activeParameter.
-         * @stubbed
          */
         activeParameter?: number;
 
@@ -7909,7 +7946,6 @@ export module '@theia/plugin' {
      *
      * Provides additional metadata over normal {@link Location} definitions, including the range of
      * the defining symbol
-     * @stubbed
      */
     export type DefinitionLink = LocationLink;
 
@@ -9285,6 +9321,19 @@ export module '@theia/plugin' {
         export function registerHoverProvider(selector: DocumentSelector, provider: HoverProvider): Disposable;
 
         /**
+         * Register a provider that locates evaluatable expressions in text documents.
+         * The editor will evaluate the expression in the active debug session and will show the result in the debug hover.
+         *
+         * If multiple providers are registered for a language an arbitrary provider will be used.
+         *
+         * @param selector A selector that defines the documents this provider is applicable to.
+         * @param provider An evaluatable expression provider.
+         * @return A {@link Disposable} that unregisters this provider when being disposed.
+         * @stubbed
+         */
+        export function registerEvaluatableExpressionProvider(selector: DocumentSelector, provider: EvaluatableExpressionProvider): Disposable;
+
+        /**
          * Register a workspace symbol provider.
          *
          * Multiple providers can be registered for a language. In that case providers are asked in
@@ -9598,6 +9647,58 @@ export module '@theia/plugin' {
     }
 
     /**
+     * An EvaluatableExpression represents an expression in a document that can be evaluated by an active debugger or runtime.
+     * The result of this evaluation is shown in a tooltip-like widget.
+     * If only a range is specified, the expression will be extracted from the underlying document.
+     * An optional expression can be used to override the extracted expression.
+     * In this case the range is still used to highlight the range in the document.
+     * @stubbed
+     */
+    export class EvaluatableExpression {
+
+        /*
+         * The range is used to extract the evaluatable expression from the underlying document and to highlight it.
+         * @stubbed
+         */
+        readonly range: Range;
+
+        /*
+         * If specified the expression overrides the extracted expression.
+         */
+        readonly expression?: string | undefined;
+
+        /**
+         * Creates a new evaluatable expression object.
+         *
+         * @param range The range in the underlying document from which the evaluatable expression is extracted.
+         * @param expression If specified overrides the extracted expression.
+         */
+        constructor(range: Range, expression?: string);
+    }
+
+    /**
+     * The evaluatable expression provider interface defines the contract between extensions and
+     * the debug hover. In this contract the provider returns an evaluatable expression for a given position
+     * in a document and the editor evaluates this expression in the active debug session and shows the result in a debug hover.
+     * @stubbed
+     */
+    export interface EvaluatableExpressionProvider {
+        /**
+         * Provide an evaluatable expression for the given document and position.
+         * The editor will evaluate this expression in the active debug session and will show the result in the debug hover.
+         * The expression can be implicitly specified by the range in the underlying document or by explicitly returning an expression.
+         *
+         * @param document The document for which the debug hover is about to appear.
+         * @param position The line and character position in the document where the debug hover is about to appear.
+         * @param token A cancellation token.
+         * @return An EvaluatableExpression or a thenable that resolves to such. The lack of a result can be
+         * signaled by returning `undefined` or `null`.
+         * @stubbed
+         */
+        provideEvaluatableExpression(document: TextDocument, position: Position, token: CancellationToken | undefined): ProviderResult<EvaluatableExpression>;
+    }
+
+    /**
      * A document highlight kind.
      */
     export enum DocumentHighlightKind {
@@ -9680,7 +9781,6 @@ export module '@theia/plugin' {
 
         /**
          * Controls whether the input box is visible (default is true).
-         * @stubbed
          */
         visible: boolean;
     }
@@ -9927,7 +10027,6 @@ export module '@theia/plugin' {
 
     /**
      * A DebugProtocolBreakpoint is an opaque stand-in type for the [Breakpoint](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint) type defined in the Debug Adapter Protocol.
-     * @stubbed
      */
     export interface DebugProtocolBreakpoint {
         // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint)
@@ -9935,7 +10034,6 @@ export module '@theia/plugin' {
 
     /**
      * A DebugProtocolSource is an opaque stand-in type for the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
-     * @stubbed
      */
     export interface DebugProtocolSource {
         // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source)
@@ -10007,7 +10105,6 @@ export module '@theia/plugin' {
          * the editor breakpoint was not yet registered or because the debug adapter is not interested in the
          * breakpoint), the value undefined is returned.
          * @param breakpoint a Breakpoint in the editor.
-         * @stubbed
          */
         getDebugProtocolBreakpoint(breakpoint: Breakpoint): PromiseLike<DebugProtocolBreakpoint | undefined>
     }
@@ -10492,7 +10589,6 @@ export module '@theia/plugin' {
          * If the "Source" descriptor has insufficient information for creating the Uri, an error is thrown.
          * @param source An object conforming to the Source type defined in the Debug Adapter Protocol.
          * @param session An optional debug session that will be used when the source descriptor uses a reference number to load the contents from an active debug session.
-         * @stubbed
          */
         export function asDebugSourceUri(source: DebugProtocolSource, session?: DebugSession): Uri;
 
@@ -11767,8 +11863,9 @@ export module '@theia/plugin' {
         /**
          * The permissions granted by the session's access token. Available scopes
          * are defined by the [AuthenticationProvider](#AuthenticationProvider).
+         * @stubbed
          */
-        readonly scopes: ReadonlyArray<string>;
+        readonly scopes: readonly string[];
     }
 
     /**
@@ -12003,12 +12100,6 @@ export module '@theia/plugin' {
          * @return A {@link Disposable} that unregisters this provider when being disposed.
          */
         export function registerAuthenticationProvider(id: string, label: string, provider: AuthenticationProvider, options?: AuthenticationProviderOptions): Disposable;
-
-        /**
-         * @deprecated Use {@link getSession()} {@link AuthenticationGetSessionOptions.silent} instead.
-         */
-        export function hasSession(providerId: string, scopes: readonly string[]): Thenable<boolean>;
-
     }
 }
 
