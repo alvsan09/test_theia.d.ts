@@ -104,6 +104,7 @@ export module '@theia/plugin' {
         /**
          * The public API exported by this plug-in. It is an invalid action
          * to access this field before this plug-in has been activated.
+         * @stubbed
          */
         readonly exports: T;
 
@@ -111,7 +112,6 @@ export module '@theia/plugin' {
          * Activates this plug-in and returns its public API.
          *
          * @return A promise that will resolve when this plug-in has been activated.
-         * @stubbed
          */
         activate(): Thenable<T>;
     }
@@ -618,7 +618,7 @@ export module '@theia/plugin' {
      * Provides additional metadata over normal [location](#Location) definitions, including the range of
      * the defining symbol
      */
-    export interface DefinitionLink {
+    export interface LocationLink {
         /**
          * Span of the symbol being defined in the source file.
          *
@@ -1169,6 +1169,7 @@ export module '@theia/plugin' {
         /**
          * The column in which this editor shows. Will be `undefined` in case this
          * isn't one of the three main editors, e.g an embedded editor.
+         * @stubbed
          */
         viewColumn?: ViewColumn;
 
@@ -1178,7 +1179,7 @@ export module '@theia/plugin' {
          * The given callback-function is invoked with an [edit-builder](#TextEditorEdit) which must
          * be used to make edits. Note that the edit-builder is only valid while the
          * callback executes.
-         * @stubbed 
+         *
          * @param callback A function which can create edits using an [edit-builder](#TextEditorEdit).
          * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
          * @return A promise that resolves with a value indicating if the edits could be applied.
@@ -1189,7 +1190,7 @@ export module '@theia/plugin' {
          * Insert a [snippet](#SnippetString) and put the editor into snippet mode. "Snippet mode"
          * means the editor adds placeholders and additional cursors so that the user can complete
          * or accept the snippet.
-         * @stubbed
+         *
          * @param snippet The snippet to insert in this edit.
          * @param location Position or range at which to insert the snippet, defaults to the current editor selection or selections.
          * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
@@ -1214,6 +1215,7 @@ export module '@theia/plugin' {
          *
          * @param range A range.
          * @param revealType The scrolling strategy for revealing `range`.
+         * @stubbed
          */
         revealRange(range: Range, revealType?: TextEditorRevealType): void;
 
@@ -1223,7 +1225,6 @@ export module '@theia/plugin' {
          * @deprecated use [window.showTextDocument](#Window.showTextDocument) instead.
          *
          * @param column A [view column](#ViewColumn) in which this editor should be shown.
-         * @stubbed
          */
         show(column?: ViewColumn): void;
 
@@ -1231,7 +1232,6 @@ export module '@theia/plugin' {
          * Hides this text editor.
          *
          * @deprecated use 'workbench.action.closeActiveEditor' command instead.
-         * @stubbed
          */
         hide(): void;
     }
@@ -1654,6 +1654,7 @@ export module '@theia/plugin' {
 
         /**
          * The reason why save was triggered.
+         * @stubbed
          */
         reason: TextDocumentSaveReason;
 
@@ -1676,7 +1677,6 @@ export module '@theia/plugin' {
          * ```
          *
          * @param thenable A thenable that resolves to [pre-save-edits](#TextEdit).
-         * @stubbed
          */
         waitUntil(thenable: Thenable<TextEdit[]>): void;
 
@@ -1686,7 +1686,6 @@ export module '@theia/plugin' {
          * *Note:* This function can only be called during event dispatch.
          *
          * @param thenable A thenable that delays saving.
-         * @stubbed
          */
         waitUntil(thenable: Thenable<any>): void;
     }
@@ -2306,6 +2305,12 @@ export module '@theia/plugin' {
      */
     export interface QuickPickOptions {
         /**
+         * An optional string that represents the title of the quick pick.
+         * @stubbed
+         */
+        title?: string;
+
+        /**
          * A flag to include the description when filtering
          */
         matchOnDescription?: boolean;
@@ -2468,6 +2473,7 @@ export module '@theia/plugin' {
          * @param callback A command handler function with access to an [editor](#TextEditor) and an [edit](#TextEditorEdit).
          * @param thisArg The `this` context used when invoking the handler function.
          * @return Disposable which unregisters this command on disposal.
+         * @stubbed
          */
         export function registerTextEditorCommand(command: string, callback: (textEditor: TextEditor, edit: TextEditorEdit, ...args: any[]) => void, thisArg?: any): Disposable;
 
@@ -2475,7 +2481,6 @@ export module '@theia/plugin' {
          * Execute the active handler for the given command and arguments.
          *
          * Reject if a command cannot be executed.
-         * @stubbed
          */
         export function executeCommand<T>(commandId: string, ...args: any[]): Thenable<T | undefined>;
 
@@ -2485,7 +2490,6 @@ export module '@theia/plugin' {
          *
          * @param filterInternal Set `true` to not see internal commands (starting with an underscore)
          * @return Thenable that resolves to a list of command ids.
-         * @stubbed
          */
         export function getCommands(filterInternal?: boolean): Thenable<string[]>;
     }
@@ -2672,18 +2676,17 @@ export module '@theia/plugin' {
 
         /**
          * Reference to a icon representing a folder. The icon is taken from the current file icon theme or a placeholder icon.
+         * @stubbed
          */
         static readonly Folder: ThemeIcon;
 
         /**
          * The id of the icon. The available icons are listed in https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
-         * @stubbed
          */
         readonly id: string;
 
         /**
          * The optional ThemeColor of the icon. The color is currently only used in {@link TreeItem}.
-         * @stubbed
          */
         readonly color?: ThemeColor | undefined;
 
@@ -2691,7 +2694,6 @@ export module '@theia/plugin' {
          * Creates a reference to a theme icon.
          * @param id id of the icon. The available icons are listed in https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
          * @param color optional `ThemeColor` for the icon. The color is currently only used in {@link TreeItem}.
-         * @stubbed
          */
         private constructor(public id: string, public color?: ThemeColor);
     }
@@ -2866,12 +2868,12 @@ export module '@theia/plugin' {
     export interface Terminal {
         /**
          * Human readable representation of the terminal in the UI.
+         * @stubbed
          */
         readonly name: string;
 
         /**
          * Terminal id.
-         * @stubbed
          */
         readonly processId: Thenable<number>;
 
@@ -2942,6 +2944,14 @@ export module '@theia/plugin' {
          * Environment variables for terminal in format key - value.
          */
         env?: { [key: string]: string | null };
+
+        /**
+         * A message to write to the terminal on first launch. Note that this is not sent to the
+         * process, but rather written directly to the terminal. This supports escape sequences such
+         * as setting text style.
+         * @stubbed
+         */
+        message?: string;
 
         /**
          * Terminal attributes. Can be useful to apply some implementation specific information.
@@ -3491,7 +3501,6 @@ export module '@theia/plugin' {
          *
          * @param key A string.
          * @param value A value. MUST not contain cyclic references.
-         * @stubbed
          */
         update(key: string, value: any): Thenable<void>;
     }
@@ -3614,6 +3623,7 @@ export module '@theia/plugin' {
 
         /**
          * Fired when the webview content posts a message.
+         * @stubbed
          */
         readonly onDidReceiveMessage: Event<any>;
 
@@ -3623,7 +3633,6 @@ export module '@theia/plugin' {
          * Messages are only delivered if the webview is visible.
          *
          * @param message Body of the message.
-         * @stubbed
          */
         postMessage(message: any): Thenable<boolean>;
 
@@ -4999,12 +5008,12 @@ export module '@theia/plugin' {
          *
          * When a navigation 'back' button is needed this one should be used for consistency.
          * It comes with a predefined icon, tooltip and location.
+         * @stubbed
          */
         static readonly Back: QuickInputButton;
 
         /**
          * @hidden
-         * @stubbed
          */
         private constructor();
     }
@@ -5375,13 +5384,9 @@ export module '@theia/plugin' {
         getParent?(element: T): ProviderResult<T>;
     }
 
-    /**
-     * @stubbed 
-     */
     export class TreeItem {
         /**
          * A human-readable string describing this item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).
-         * @stubbed
          */
         label?: string | TreeItemLabel;
 
@@ -5389,6 +5394,7 @@ export module '@theia/plugin' {
          * Optional id for the tree item that has to be unique across tree. The id is used to preserve the selection and expansion state of the tree item.
          *
          * If not provided, an id is generated using the tree item's label. **Note** that when labels change, ids will change and that selection and expansion state cannot be kept stable anymore.
+         * @stubbed
          */
         id?: string;
 
@@ -6540,6 +6546,15 @@ export module '@theia/plugin' {
         export const appRoot: string;
 
         /**
+         * The hosted location of the application
+         * On desktop this is 'desktop'
+         * In the web this is the specified embedder i.e. 'github.dev', 'codespaces', or 'web' if the embedder
+         * does not provide that information
+         * @stubbed
+         */
+        export const appHost: string;
+
+        /**
          * The custom uri scheme the editor registers to in the operating system.
          */
         export const uriScheme: string;
@@ -6548,6 +6563,36 @@ export module '@theia/plugin' {
          * Represents the preferred user-language, like `de-CH`, `fr`, or `en-US`.
          */
         export const language: string;
+
+        /**
+         * Indicates that this is a fresh install of the application.
+         * `true` if within the first day of installation otherwise `false`.
+         * @stubbed
+         */
+        export const isNewAppInstall: boolean;
+
+        /**
+         * Indicates whether the users has telemetry enabled.
+         * Can be observed to determine if the extension should send telemetry.
+         */
+        export const isTelemetryEnabled: boolean;
+
+        /**
+         * An {@link Event} which fires when the user enabled or disables telemetry.
+         * `true` if the user has enabled telemetry or `false` if the user has disabled telemetry.
+         */
+        export const onDidChangeTelemetryEnabled: Event<boolean>;
+
+        /**
+         * The name of a remote. Defined by extensions, popular samples are `wsl` for the Windows
+         * Subsystem for Linux or `ssh-remote` for remotes using a secure shell.
+         *
+         * *Note* that the value is `undefined` when there is no remote extension host but that the
+         * value is defined in all extension hosts (local and remote) in case a remote extension host
+         * exists. Use {@link Extension.extensionKind} to know if
+         * a specific extension runs remote or not.
+         */
+        export const remoteName: string | undefined;
 
         /**
          * The detected default shell for the extension host.
@@ -6723,11 +6768,11 @@ export module '@theia/plugin' {
 
     /**
      * Describes what to do with the indentation when pressing Enter.
-     * @stubbed
      */
     export enum IndentAction {
         /**
          * Insert new line and copy the previous line's indentation.
+         * @stubbed
          */
         None = 0,
         /**
@@ -6900,6 +6945,14 @@ export module '@theia/plugin' {
          * The parameters of this signature.
          */
         parameters: ParameterInformation[];
+
+        /**
+         * The index of the active parameter.
+         *
+         * If provided, this is used in place of SignatureHelp.activeParameter.
+         * @stubbed
+         */
+        activeParameter?: number;
 
         /**
          * Creates a new signature information object.
@@ -7852,10 +7905,13 @@ export module '@theia/plugin' {
     }
 
     /**
-     * Represents the connection of two locations. Provides additional metadata over normal {@link Location locations},
-     * including an origin range.
+     * Information about where a symbol is defined.
+     *
+     * Provides additional metadata over normal {@link Location} definitions, including the range of
+     * the defining symbol
+     * @stubbed
      */
-    export type LocationLink = DefinitionLink;
+    export type DefinitionLink = LocationLink;
 
     /**
      * The declaration of a symbol representation as one or many {@link Location locations}
@@ -9621,6 +9677,12 @@ export module '@theia/plugin' {
          * A string to show as place holder in the input box to guide the user.
          */
         placeholder: string;
+
+        /**
+         * Controls whether the input box is visible (default is true).
+         * @stubbed
+         */
+        visible: boolean;
     }
 
     interface QuickDiffProvider {
@@ -9864,6 +9926,22 @@ export module '@theia/plugin' {
     }
 
     /**
+     * A DebugProtocolBreakpoint is an opaque stand-in type for the [Breakpoint](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint) type defined in the Debug Adapter Protocol.
+     * @stubbed
+     */
+    export interface DebugProtocolBreakpoint {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint)
+    }
+
+    /**
+     * A DebugProtocolSource is an opaque stand-in type for the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
+     * @stubbed
+     */
+    export interface DebugProtocolSource {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source)
+    }
+
+    /**
      * Configuration for a debug session.
      */
     export interface DebugConfiguration {
@@ -9922,6 +10000,16 @@ export module '@theia/plugin' {
          * Send a custom request to the debug adapter.
          */
         customRequest(command: string, args?: any): Thenable<any>;
+
+        /**
+         * Maps a breakpoint in the editor to the corresponding Debug Adapter Protocol (DAP) breakpoint that
+         * is managed by the debug adapter of the debug session. If no DAP breakpoint exists (either because
+         * the editor breakpoint was not yet registered or because the debug adapter is not interested in the
+         * breakpoint), the value undefined is returned.
+         * @param breakpoint a Breakpoint in the editor.
+         * @stubbed
+         */
+        getDebugProtocolBreakpoint(breakpoint: Breakpoint): PromiseLike<DebugProtocolBreakpoint | undefined>
     }
 
     /**
@@ -10396,6 +10484,17 @@ export module '@theia/plugin' {
          * @return A [disposable](#Disposable) that unregisters this factory when being disposed.
          */
         export function registerDebugAdapterDescriptorFactory(debugType: string, factory: DebugAdapterDescriptorFactory): Disposable;
+
+        /**
+         * Converts a "Source" descriptor object received via the Debug Adapter Protocol into a Uri that can be used to load its contents.
+         * If the source descriptor is based on a path, a file Uri is returned. If the source descriptor uses a reference number, a
+         * specific debug Uri (scheme 'debug') is constructed that requires a corresponding ContentProvider and a running debug session
+         * If the "Source" descriptor has insufficient information for creating the Uri, an error is thrown.
+         * @param source An object conforming to the Source type defined in the Debug Adapter Protocol.
+         * @param session An optional debug session that will be used when the source descriptor uses a reference number to load the contents from an active debug session.
+         * @stubbed
+         */
+        export function asDebugSourceUri(source: DebugProtocolSource, session?: DebugSession): Uri;
 
         /**
          * Register a {@link DebugConfigurationProvider debug configuration provider} for a specific debug type.
